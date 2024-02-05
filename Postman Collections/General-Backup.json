@@ -1,0 +1,710 @@
+{
+	"info": {
+		"_postman_id": "91e6b63e-dad8-4307-84e3-9dddbf147b70",
+		"name": "General",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Checks",
+			"item": [
+				{
+					"name": "API is healthy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d3c6bba-db22-4bbd-b3e6-0bc73ac2c7b4",
+								"exec": [
+									"pm.test(\"API is healthy\", function (){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "52a67853-51ea-423d-9670-e4ee328cb1b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "dca16ba3-325d-4de5-80af-f93d9dc96881",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseUrl}}/health",
+						"description": "Checks whether API is healthy"
+					},
+					"response": []
+				}
+			],
+			"id": "4822a27c-e239-40e3-8c2c-06012846b56a",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f8156a78-7cef-4e39-a747-82ccd2011f95",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e65c6a6-79c3-4006-a9ea-960c9efb366c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Documentation",
+			"item": [
+				{
+					"name": "Swagger is accessible",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a63d940d-6510-457e-9f96-647b8dd3c387",
+								"exec": [
+									"if (pm.environment.get(\"IsDevelopment\") === \"true\"){\r",
+									"    pm.test(\"Swagger is accessible in development\", function (){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"} else {\r",
+									"    pm.test(\"Swagger is not accessible in production\", function (){\r",
+									"    pm.response.to.have.status(404);\r",
+									"})\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4409aad3-43d5-4181-bafa-f8c44cb68491",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseUrl}}/swagger"
+					},
+					"response": []
+				}
+			],
+			"id": "95af936f-0a18-4e6b-b34a-501b3d82fb7f"
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Without authorization",
+					"item": [
+						{
+							"name": "Unauthorized endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending unauthorized request to unauthorized endpoint should return 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "c901e8df-7dc7-498c-818a-d0fcc963ebdc",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test"
+							},
+							"response": []
+						},
+						{
+							"name": "Authorized endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending unauthorized request to authorized endpoint should return 401\", function(){\r",
+											"    pm.response.to.have.status(401);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "fe7e0700-33d2-44b0-aea5-7debbcfb9935",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test/authorized"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending unauthorized request to admin endpoint should return 401\", function(){\r",
+											"    pm.response.to.have.status(401);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "91967206-26e5-4baa-94b4-5cb4972bce20",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test/admin"
+							},
+							"response": []
+						}
+					],
+					"id": "53b083e3-df51-4350-becd-fd587310689f",
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "128c626a-a887-49cf-9589-1d89ea136702",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a0d3925-69be-401d-bba4-43801e872f1b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "With common user authorization",
+					"item": [
+						{
+							"name": "Unauthorized endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending authorized request to unauthorized endpoint should return 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "d364397b-fdd1-4ec6-8352-e8f92ea08c8d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test"
+							},
+							"response": []
+						},
+						{
+							"name": "Authorized endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending authorized request to authorized endpoint should return 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "1f4797ef-bd1c-43bc-a18e-640a5840e118",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test/authorized"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending authorized request to admin endpoint should return 403\", function(){\r",
+											"    pm.response.to.have.status(403);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "5eefec30-a5d1-4f30-bfd3-16334866cf7d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test/admin"
+							},
+							"response": []
+						}
+					],
+					"id": "580a776b-92d6-4d41-93b4-bc8890a92926",
+					"auth": {
+						"type": "bearer",
+						"bearer": {
+							"token": "{{Temp.CommonUserAccessToken}}"
+						}
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "393160d4-58d8-410b-b5bf-4301525417df",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(",
+									"    {",
+									"        url: pm.environment.get(\"IsTokenUrl\"),",
+									"        method: 'post',",
+									"        header: {",
+									"            'Content-Type': 'application/x-www-form-urlencoded'",
+									"        },",
+									"        body: {",
+									"            mode: 'urlencoded',",
+									"            urlencoded: [",
+									"                { key:'client_id', value: pm.environment.get('ClientId')},",
+									"                { key:'client_secret', value: pm.environment.get('ClientSecret')},",
+									"                { key:'grant_type', value: 'password' },",
+									"                { key:'username', value: pm.environment.get('CommonUserLogin')},",
+									"                { key:'password', value: pm.environment.get('CommonUserPassword')}",
+									"            ]",
+									"        }",
+									"    },",
+									"    function (err, res) {",
+									"        const token = res.json().access_token;",
+									"        pm.collectionVariables.set(\"Temp.CommonUserAccessToken\", token);",
+									"    }",
+									")"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "be529d78-656e-4aa1-a4bd-8e96cdb8db80",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "With admin user authorization",
+					"item": [
+						{
+							"name": "Unauthorized endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending admin authorized request to unauthorized endpoint should return 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "e05e90b5-9e48-47a0-896c-4a849e843cc0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test"
+							},
+							"response": []
+						},
+						{
+							"name": "Authorized endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending admin authorized request to authorized endpoint should return 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "38e49aaa-c340-4ac4-91e2-4e7f7796e4d3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test/authorized"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin endpoint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ad65ff8d-ed7d-4e97-8b6b-deff7f03b712",
+										"exec": [
+											"pm.test(\"Sending admin authorized request to admin endpoint should return 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "6f268129-5b4d-4cc2-87e4-71ad35d8ccb6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BaseApiUrl}}/test/admin"
+							},
+							"response": []
+						}
+					],
+					"id": "1d924c74-6c61-4546-be1a-2169701e3776",
+					"auth": {
+						"type": "bearer",
+						"bearer": {
+							"token": "{{Temp.AdminAccessToken}}"
+						}
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0a9b9d02-9246-4af2-9989-0a8db521e163",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(",
+									"    {",
+									"        url: pm.environment.get(\"IsTokenUrl\"),",
+									"        method: 'POST',",
+									"        header: {",
+									"            'Content-Type': 'application/x-www-form-urlencoded'",
+									"        },",
+									"        body: {",
+									"            mode: 'urlencoded',",
+									"            urlencoded: [",
+									"                { key:'client_id', value: pm.environment.get('ClientId')},",
+									"                { key:'client_secret', value: pm.environment.get('ClientSecret')},",
+									"                { key:'grant_type', value: 'password' },",
+									"                { key:'username', value: pm.environment.get('AdminLogin')},",
+									"                { key:'password', value: pm.environment.get('AdminPassword')}",
+									"            ]",
+									"        }",
+									"    },",
+									"    function (err, res) {",
+									"        const token = res.json().access_token;",
+									"        pm.collectionVariables.set(\"Temp.AdminAccessToken\", token);",
+									"    }",
+									")"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "47f0bba7-a085-48a2-aaec-f0b0926392f4",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"id": "338efc47-1ddf-4391-af12-174fe0e1ea16"
+		},
+		{
+			"name": "Sandbox",
+			"item": [
+				{
+					"name": "Variables",
+					"id": "0a25b5ef-12c6-4dbc-a2ef-cb4b4f100fec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get?variable={{MyVariable}}",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "variable",
+									"value": "{{MyVariable}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Headers example",
+					"id": "4bbe4ba2-b867-4c56-8575-da32ec9e9a7b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get?parameter1=Hello&parameter2=World",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "parameter1",
+									"value": "Hello"
+								},
+								{
+									"key": "parameter2",
+									"value": "World"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Random body example",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b66855e-0caf-496d-866b-e6c1a908f9df",
+								"exec": [
+									"const person = {\r",
+									"    \"name\": \"Barry Allen\",\r",
+									"    \"city\": \"Central City\",\r",
+									"    \"age\": Math.floor(Math.random() * 50)\r",
+									"}\r",
+									"\r",
+									"pm.request.body = JSON.stringify(person)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "1f7e3762-3d1e-4516-aa20-c7e74128c8db",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "postman-echo.com/post"
+					},
+					"response": []
+				},
+				{
+					"name": "Request example",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6efa60ae-bdff-4e61-b4f6-9bf66b932be0",
+								"exec": [
+									"pm.sendRequest(\r",
+									"    \"https://api.ip2lock.com/\" + pm.environment.get(\"LocationApiKey\") + \"/detect\",\r",
+									"    function(err,res){\r",
+									"        const body = res.json();\r",
+									"        pm.request.addQueryParams(\"lat=\" + body.location.latitude);\r",
+									"        pm.request.addQueryParams(\"lon=\" + body.location.longitude);\r",
+									"    }\r",
+									")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f7cfee98-da2d-4b6c-a5fb-29518be0f99f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://weatherbit-v1-mashape.p.rapidapi.com/current"
+					},
+					"response": []
+				}
+			],
+			"id": "e1288f62-c264-4c17-8004-fc100aaee4d7"
+		},
+		{
+			"name": "CleanUp",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c2843321-d121-4fd0-8b73-b2adf2e5927e",
+						"exec": [
+							"var variables = pm.collectionVariables.toObject();\r",
+							"var tempVariableNames = _.keys(variables).filter(x => x.startsWith('Temp.'))\r",
+							"tempVariableNames.forEach(tempVarName => pm.collectionVariables.unset(tempVarName)); \r",
+							"\r",
+							"var variables = pm.globals.toObject();\r",
+							"var tempVariableNames = _.keys(variables).filter(x => x.startsWith('Temp.'))\r",
+							"tempVariableNames.forEach(tempVarName => pm.globals.unset(tempVarName)); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7353eae1-0f4f-4d49-8a84-3fa737a04901",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "CLEANUP",
+				"header": [],
+				"url": "{{BaseUrl}}/cleanup"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "883562c2-5c7b-4f76-9cdb-e8b7077a8125",
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.addHeader({\"key\":\"X-Api-Key\", \"value\": \"NEJAKY API KLIC\" })"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "efeb3dea-a57e-401b-806b-f4d256611907",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CollectionVariable",
+			"value": "63",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "MyVariable",
+			"value": "collection",
+			"type": "string"
+		}
+	]
+}
