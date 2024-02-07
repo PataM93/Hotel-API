@@ -321,13 +321,13 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "393160d4-58d8-410b-b5bf-4301525417df",
+								"id": "8dbc8f43-b1da-4863-8691-fe1f52a34794",
 								"type": "text/javascript",
 								"exec": [
 									"pm.sendRequest(",
 									"    {",
 									"        url: pm.environment.get(\"IsTokenUrl\"),",
-									"        method: 'post',",
+									"        method: 'POST',",
 									"        header: {",
 									"            'Content-Type': 'application/x-www-form-urlencoded'",
 									"        },",
@@ -353,7 +353,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "be529d78-656e-4aa1-a4bd-8e96cdb8db80",
+								"id": "15f8f94d-dbaf-460b-8a26-c94bd5051570",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -676,7 +676,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "883562c2-5c7b-4f76-9cdb-e8b7077a8125",
+				"id": "7d795e3a-2735-46d0-a2af-f9355593c401",
 				"type": "text/javascript",
 				"exec": [
 					"pm.request.addHeader({\"key\":\"X-Api-Key\", \"value\": \"NEJAKY API KLIC\" })"
@@ -686,7 +686,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "efeb3dea-a57e-401b-806b-f4d256611907",
+				"id": "0f5e6314-cd0b-49fc-af6a-d130bf72f401",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -704,7 +704,8 @@
 		{
 			"key": "MyVariable",
 			"value": "collection",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
